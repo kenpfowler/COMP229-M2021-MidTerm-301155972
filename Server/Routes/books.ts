@@ -25,18 +25,53 @@ router.get('/', (req, res, next) =>
 
 });
 
-//  GET the Book Details page in order to add a new Book
-router.get('/add', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+// GET books from list
+router.get('/books', (req, res, next) => 
+{
+  // find all books in the books collection
+  book.find( (err, books) => {
+    if (err) {
+      return console.error(err);
+    }
+    else {
+      res.render('books/index', {
+        title: 'Books',
+        page: 'books',
+        books: books
+      });
+    }
+  });
 
 });
 
-// POST process the Book Details page and create a new Book - CREATE
-router.post('/add', (req, res, next) => {
+//  GET the Book Details page in order to add a new Book
+router.get('/details', (req, res, next) => {
+  res.render('books/add', {
+    title: 'Add',
+    page: 'add'
+  });
+});
 
+// POST process the Book Details page and create a new Book - CREATE
+router.post('/details', (req, res, next) => {
+  //create a new book document 
+  let newBook = new book({
+    Title: req.body.title,
+    Description: req.body.description,
+    Price: req.body.price,
+    Author: req.body.author,
+    Genre: req.body.genre
+  });
+
+  //use mongoose to create in the database then redirect user
+  book.create(newBook, (err, book) => {
+    if (err) {
+      console.error(err);
+      res.end(err);
+    } else {
+      res.redirect("/books");
+    }
+  });
     /*****************
      * ADD CODE HERE *
      *****************/

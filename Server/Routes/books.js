@@ -21,9 +21,43 @@ router.get('/', (req, res, next) => {
         }
     });
 });
-router.get('/add', (req, res, next) => {
+router.get('/books', (req, res, next) => {
+    books_1.default.find((err, books) => {
+        if (err) {
+            return console.error(err);
+        }
+        else {
+            res.render('books/index', {
+                title: 'Books',
+                page: 'books',
+                books: books
+            });
+        }
+    });
 });
-router.post('/add', (req, res, next) => {
+router.get('/details', (req, res, next) => {
+    res.render('books/add', {
+        title: 'Add',
+        page: 'add'
+    });
+});
+router.post('/details', (req, res, next) => {
+    let newBook = new books_1.default({
+        Title: req.body.title,
+        Description: req.body.description,
+        Price: req.body.price,
+        Author: req.body.author,
+        Genre: req.body.genre
+    });
+    books_1.default.create(newBook, (err, book) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        else {
+            res.redirect("/books");
+        }
+    });
 });
 router.get('/:id', (req, res, next) => {
 });
