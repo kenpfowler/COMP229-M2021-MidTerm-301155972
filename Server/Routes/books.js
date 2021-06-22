@@ -35,14 +35,14 @@ router.get("/books", (req, res, next) => {
         }
     });
 });
-router.get("/details", (req, res, next) => {
+router.get("/add", (req, res, next) => {
     res.render("books/details", {
         title: "Add",
         page: "add",
         books: "",
     });
 });
-router.post("/details", (req, res, next) => {
+router.post("/add", (req, res, next) => {
     let newBook = new books_1.default({
         Title: req.body.title,
         Description: req.body.description,
@@ -95,5 +95,13 @@ router.post("/edit/:id", (req, res, next) => {
     });
 });
 router.get("/delete/:id", (req, res, next) => {
+    let id = req.params.id;
+    books_1.default.remove({ _id: id }, (err) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.redirect("/books");
+    });
 });
 //# sourceMappingURL=books.js.map

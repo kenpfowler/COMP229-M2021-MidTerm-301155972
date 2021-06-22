@@ -5,10 +5,8 @@
       <div class="row">
         <div class="col-md-offset-1 col-md-10">
           <h3>Favourite Books List </h3>
-          <!-- ------------------------ -->
-          <!-- FIX THE ADD BUTTON BELOW -->
-          <!-- ------------------------ -->
-          <a href="books/details" class="btn btn-primary"><i class="fa fa-plus"></i> Add a book</a>
+          <!-- button to add a book -->
+          <a href="books/add" class="btn btn-primary"><i class="fa fa-plus"></i> Add a book</a>
           <br>
           <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover">
@@ -32,16 +30,13 @@
                   <td class="text-center"><%= books[count].Genre %></td>
 
                   <td class="text-center">
-                    <!-- ------------------------ -->
-                    <!-- ADD the EDIT BUTTON HERE -->
-                    <!-- ------------------------ -->
+                  <!-- button to edit a book -->
                     <a href=<%= "books/edit/" + books[count]._id %> class="btn btn-warning"><i class="fa fa-clipboard"></i> Edit</a>
                   </td>
 
                   <td class="text-center">
-                    <!-- ------------------------ -->
-                    <!-- ADD the DELETE BUTTON HERE -->
-                    <!-- ------------------------ -->
+                  <!-- button to delete a book -->
+                    <a href=<%= "books/delete/" + books[count]._id %> class="btn btn-danger delete"><i class="fa fa-trash"></i> Delete</a>
                   </td>
                 </tr>
                 <% } %>
