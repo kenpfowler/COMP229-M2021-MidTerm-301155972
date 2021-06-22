@@ -19,9 +19,12 @@ db.on("error", function()
   console.error("connection error");
 });
 
-db.once("open", function()
-{
-  console.log(`Connected to MongoDB at: ${DBConfig.HostName}`);
+db.once("open", () => {
+  for (const connection of mongoose.connections) {
+    console.log(
+      `Connected to MongoDB at: ${connection.host} and DB: ${connection.name}`
+    );
+  }
 });
 
 // define routers

@@ -34,8 +34,10 @@ const db = mongoose_1.default.connection;
 db.on("error", function () {
     console.error("connection error");
 });
-db.once("open", function () {
-    console.log(`Connected to MongoDB at: ${DBConfig.HostName}`);
+db.once("open", () => {
+    for (const connection of mongoose_1.default.connections) {
+        console.log(`Connected to MongoDB at: ${connection.host} and DB: ${connection.name}`);
+    }
 });
 const index_1 = __importDefault(require("../Routes/index"));
 const books_1 = __importDefault(require("../Routes/books"));
